@@ -1,17 +1,25 @@
 import React, {useState} from 'react'
 import styled from 'styled-components'
 import colors from "../../assets/colors";
-import Search from "@material-ui/icons/Search";
+import NavigateNext from "@material-ui/icons/NavigateNext";
+
+const Container = styled.div`
+  padding: 20px;
+`
+
+const Description = styled.div`
+  color: ${colors.textColor};
+  font-size: 20px;
+`
 
 const Form = styled.form`
   max-width: 100%;
   text-align: center;
-  margin-top: 50px;
 `
 
 const InputBar = styled.div`
   position: relative;
-  margin: auto;
+  margin: 20px auto;
   display: flex;
   min-width: 500px;
   align-items: center;
@@ -43,7 +51,6 @@ const InputBox = styled.input`
 `
 
 const Result = styled.div`
-  margin: 20px 0;
   width: 80%;
   
 `
@@ -68,17 +75,20 @@ const Contents: React.FC<ButtonProps> = (props) => {
   }
 
   return (
-    <div>
+    <Container>
       <Form onSubmit={handleClick}>
+        <Description> 【入力例】</Description>
+        <Description>number2kanji: 1234567890 (0 ~ 9,999,999,999,999,999 の範囲)</Description>
+        <Description>kanji2number: 壱拾弐億参千四百五拾六万七千八百九拾</Description>
         <InputBar>
-          <StyledButton><Search /></StyledButton>
+          <StyledButton><NavigateNext /></StyledButton>
           <InputBox type="text" placeholder={'変換したい文字列を入力！'} onChange={handleChange} />
         </InputBar>
       </Form>
       <Result>
         <ResultText>結果: {query}</ResultText>
       </Result>
-    </div>
+    </Container>
   )
 }
 
