@@ -65,9 +65,12 @@ type ButtonProps = {
 
 const Contents: React.FC<ButtonProps> = (props) => {
   const [query, setQuery] = useState('')
+  const [result, setResult] = useState('')
 
-  const handleClick = () => {
+  const handleSubmit = () => {
 
+
+    // setResult()
   }
 
   const handleChange = (event: any) => {
@@ -76,7 +79,7 @@ const Contents: React.FC<ButtonProps> = (props) => {
 
   return (
     <Container>
-      <Form onSubmit={handleClick}>
+      <Form onSubmit={handleSubmit}>
         <Description> 【入力例】</Description>
         <Description>number2kanji: 1234567890 (0 ~ 9,999,999,999,999,999 の範囲)</Description>
         <Description>kanji2number: 壱拾弐億参千四百五拾六万七千八百九拾</Description>
@@ -86,7 +89,7 @@ const Contents: React.FC<ButtonProps> = (props) => {
         </InputBar>
       </Form>
       <Result>
-        <ResultText>結果: {query}</ResultText>
+        <ResultText>結果: {result}</ResultText>
       </Result>
     </Container>
   )
