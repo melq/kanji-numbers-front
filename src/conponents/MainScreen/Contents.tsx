@@ -1,7 +1,7 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
+import axios from "axios";
 import colors from "../../assets/colors";
-import NavigateNext from "@material-ui/icons/NavigateNext";
 
 const Container = styled.div`
   padding: 20px;
@@ -26,22 +26,10 @@ const InputBar = styled.div`
   justify-content: center;
 `
 
-const StyledButton = styled.button`
-  height: 25px;
-  background: none;
-  position: absolute;
-  top: 50%;
-  right: 0;
-  transform: translateY(-50%);
-  border: none;
-  outline: none;
-  margin-right: 20px;
-`
-
 const InputBox = styled.input`
   box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.15);
-  font-size: 30px;
-  padding-left: 30px;
+  font-size: 18px;
+  padding: 0 30px;
   width: 95%;
   height: 50px;
   border-radius: 50px;
@@ -52,7 +40,7 @@ const InputBox = styled.input`
 
 const Result = styled.div`
   width: 80%;
-  
+
 `
 const ResultText = styled.div`
   color: ${colors.textColor};
@@ -64,27 +52,32 @@ type ButtonProps = {
 }
 
 const Contents: React.FC<ButtonProps> = (props) => {
-  const [query, setQuery] = useState('')
   const [result, setResult] = useState('')
 
-  const handleSubmit = () => {
-
-
-    // setResult()
-  }
+  // const server = 'https://kanji-number-back.an.r.appspot.com/v1/'
+  const server = 'http://localhost:8080/v1/'
 
   const handleChange = (event: any) => {
-    setQuery(event.target.value)
+    const query = event.target.value
+    if (query === '') {
+      setResult('')
+      return
+    }
+    const serverUrl = `${server}${props.mode}/${query}`
+    console.log(serverUrl)
+    axios.get(serverUrl).then((res) => {
+      if (res.data === '') setResult('正しくない文字列です')
+      else setResult(res.data)
+    }).catch(console.error)
   }
 
   return (
     <Container>
-      <Form onSubmit={handleSubmit}>
+      <Form>
         <Description> 【入力例】</Description>
         <Description>number2kanji: 1234567890 (0 ~ 9,999,999,999,999,999 の範囲)</Description>
         <Description>kanji2number: 壱拾弐億参千四百五拾六万七千八百九拾</Description>
         <InputBar>
-          <StyledButton><NavigateNext /></StyledButton>
           <InputBox type="text" placeholder={'変換したい文字列を入力！'} onChange={handleChange} />
         </InputBar>
       </Form>
