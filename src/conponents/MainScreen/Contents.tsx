@@ -54,7 +54,7 @@ type ButtonProps = {
 const Contents: React.FC<ButtonProps> = (props) => {
   const [result, setResult] = useState('')
 
-  // const server = 'https://kanji-number-back.an.r.appspot.com/v1/'
+  // const server = 'http://kanji-number-back.an.r.appspot.com/'
   const server = 'http://localhost:8080/v1/'
 
   const handleChange = (event: any) => {
